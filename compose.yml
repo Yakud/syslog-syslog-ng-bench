@@ -22,7 +22,7 @@ services:
 
 
   loggen1:
-    image: yakud/test-gen-log
+    image: log-generator-image
     hostname: loggen1
     logging:
       driver: syslog
@@ -33,7 +33,7 @@ services:
       - agent1
 
   loggen2:
-    image: yakud/test-gen-log
+    image: log-generator-image
     hostname: loggen2
     logging:
       driver: syslog
