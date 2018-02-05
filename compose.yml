@@ -1,0 +1,49 @@
+version: '3.1'
+
+services:
+  agent1:
+    image: balabit/syslog-ng:3.7
+    hostname: agent1
+    volumes:
+      - "./agent-syslog-ng/syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf"
+    ports:
+      - 602:602
+    links:
+      - central1
+
+  central1:
+    image: balabit/syslog-ng:3.7
+    hostname: central1
+    volumes:
+      - "./central-syslog-ng/syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf"
+      - "./central-logs/:/tmp/"
+    ports:
+      - 603:603
+
+
+  loggen1:
+    image: yakud/test-gen-log
+    hostname: loggen1
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://127.0.0.1:602"
+        tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
+    links:
+      - agent1
+
+  loggen2:
+    image: yakud/test-gen-log
+    hostname: loggen2
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://127.0.0.1:602"
+        tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
+    links:
+      - agent1
+
+networks:
+  default:
+    external:
+      name: logs-network
