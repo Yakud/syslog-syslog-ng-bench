@@ -8,7 +8,7 @@ services:
       - "./syslog-ng/agent/syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf"
     ports:
       - 602:602
-    links:
+    depends_on:
       - central1
 
   central1:
@@ -28,7 +28,7 @@ services:
       options:
         syslog-address: "tcp://127.0.0.1:602"
         tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
-    links:
+    depends_on:
       - agent1
 
   loggen2:
@@ -39,7 +39,7 @@ services:
       options:
         syslog-address: "tcp://127.0.0.1:602"
         tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
-    links:
+    depends_on:
       - agent1
 
 networks:

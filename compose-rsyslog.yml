@@ -8,7 +8,7 @@ services:
       - "./rsyslog/agent/agent.conf:/etc/rsyslog.d/agent.conf"
     ports:
       - 1514:1514
-    links:
+    depends_on:
       - central1
 
   central1:
@@ -28,7 +28,7 @@ services:
       options:
         syslog-address: "tcp://127.0.0.1:1514"
         tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
-    links:
+    depends_on:
       - agent1
 
   loggen2:
@@ -39,7 +39,7 @@ services:
       options:
         syslog-address: "tcp://127.0.0.1:1514"
         tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
-    links:
+    depends_on:
       - agent1
 
 networks:
