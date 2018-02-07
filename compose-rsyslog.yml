@@ -2,24 +2,23 @@ version: '3.1'
 
 services:
   agent1:
-    image: balabit/syslog-ng:3.7
+    image: yakud/rsyslog
     hostname: agent1
     volumes:
-      - "./agent-syslog-ng/syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf"
+      - "./rsyslog/agent/agent.conf:/etc/rsyslog.d/agent.conf"
     ports:
-      - 602:602
+      - 1514:1514
     links:
       - central1
 
   central1:
-    image: balabit/syslog-ng:3.7
+    image: yakud/rsyslog
     hostname: central1
     volumes:
-      - "./central-syslog-ng/syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf"
-      - "./central-logs/:/tmp/"
+      - "./rsyslog/central/central.conf:/etc/rsyslog.d/central.conf"
+      - "./logs/:/tmp/"
     ports:
-      - 603:603
-
+      - 20514:20514
 
   loggen1:
     image: log-generator-image
@@ -27,7 +26,7 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: "tcp://127.0.0.1:602"
+        syslog-address: "tcp://127.0.0.1:1514"
         tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
     links:
       - agent1
@@ -38,7 +37,7 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: "tcp://127.0.0.1:602"
+        syslog-address: "tcp://127.0.0.1:1514"
         tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
     links:
       - agent1
