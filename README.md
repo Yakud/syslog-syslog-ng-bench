@@ -2,17 +2,17 @@
 
 ## How to start:
 
-#### Init system
+#### Init system:
 ```sh
 make init
 ```
 
-#### Run docker-compose services
+#### Run rsyslog:
 ```sh
-make run
+make run-rsyslog
 ```
 
-#### Run docker-compose services as daemon
+#### Run syslog-ng:
 ```sh
-make run-daemon
+make run-syslog-ng
 ```
