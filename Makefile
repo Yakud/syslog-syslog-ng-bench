@@ -9,6 +9,9 @@ init:
 	cd ../rsyslog/docker && sh build.sh && \
 	docker network create logs-network
 
+clean:
+	rm -rf logs/log-generator-image
+
 init-generator:
 	cd log-generator-image && sh ./build.sh
 
