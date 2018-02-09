@@ -26,7 +26,7 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: "udp://127.0.0.1:602"
+        syslog-address: "tcp://127.0.0.1:602"
         tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
     depends_on:
       - agent1
