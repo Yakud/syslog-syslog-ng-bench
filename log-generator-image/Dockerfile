@@ -1,5 +1,5 @@
 FROM debian
 
-COPY gen-log.sh /usr/local/bin
+COPY gen-log /usr/local/bin
 
-ENTRYPOINT ["/usr/local/bin/gen-log.sh"]
+ENTRYPOINT ["/usr/local/bin/gen-log"]

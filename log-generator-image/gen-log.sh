@@ -1,7 +1,6 @@
 #!/bin/bash
 
-for number in {1..10000000}
-do
-    echo $number
+c=1
+while [[ $c -le 1000000 ]]; do
+	(( c++ ))
 done
-exit 0

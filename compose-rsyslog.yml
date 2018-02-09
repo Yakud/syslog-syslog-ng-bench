@@ -4,7 +4,6 @@ services:
   agent1:
     image: yakud/rsyslog
     hostname: agent1
-    network_mode: host
     volumes:
       - "./rsyslog/agent/agent.conf:/etc/rsyslog.d/agent.conf"
     ports:
@@ -15,7 +14,6 @@ services:
   central1:
     image: yakud/rsyslog
     hostname: central1
-    network_mode: host
     volumes:
       - "./rsyslog/central/central.conf:/etc/rsyslog.d/central.conf"
       - "./logs/:/tmp/"
@@ -25,7 +23,6 @@ services:
   loggen1:
     image: log-generator-image
     hostname: loggen1
-    network_mode: host
     logging:
       driver: syslog
       options:
@@ -34,7 +31,8 @@ services:
     depends_on:
       - agent1
 
-#networks:
-#  default:
-#    external:
-#      name: logs-network
+
+networks:
+  default:
+    external:
+      name: logs-network
