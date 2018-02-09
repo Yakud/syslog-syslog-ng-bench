@@ -16,10 +16,10 @@ init-generator:
 	cd log-generator-image && sh ./build.sh
 
 run-syslog-ng:
-	docker-compose -f compose-syslog-ng.yml up --force-recreate
+	docker-compose -f compose-syslog-ng.yml up -d --force-recreate
 
 run-rsyslog:
-	docker-compose -f compose-rsyslog.yml up --force-recreate
+	docker-compose -f compose-rsyslog.yml up -d --force-recreate
 
 #run-daemon:
 #	docker-compose -f compose.yml up -d --force-recreate
