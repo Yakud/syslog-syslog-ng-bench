@@ -31,16 +31,16 @@ services:
     depends_on:
       - agent1
 
-  loggen2:
-    image: log-generator-image
-    hostname: loggen2
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://127.0.0.1:1514"
-        tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
-    depends_on:
-      - agent1
+#  loggen2:
+#    image: log-generator-image
+#    hostname: loggen2
+#    logging:
+#      driver: syslog
+#      options:
+#        syslog-address: "tcp://127.0.0.1:1514"
+#        tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
+#    depends_on:
+#      - agent1
 
 networks:
   default:

@@ -5,8 +5,12 @@ DESCRIPTION:="logging-system"
 all: run
 
 init:
-	docker network create logs-network && cd ./log-generator-image && sh ./build.sh && \
-	cd ../rsyslog/docker && sh build.sh
+	cd log-generator-image && sh ./build.sh && \
+	cd ../rsyslog/docker && sh build.sh && \
+	docker network create logs-network
+
+init-generator:
+	cd log-generator-image && sh ./build.sh
 
 run-syslog-ng:
 	docker-compose -f compose-syslog-ng.yml up --force-recreate

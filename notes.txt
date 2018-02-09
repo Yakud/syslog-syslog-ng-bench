@@ -2,3 +2,5 @@ Rsyslog:
 - https://habrahabr.ru/post/321262/
 - https://habrahabr.ru/post/321262/#comment_10058568
 - http://www.rsyslog.com/tag/parsing/
+- http://www.rsyslog.com/tag/performance/
+- http://www.rsyslog.com/how-to-use-tcpflood/

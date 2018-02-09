@@ -1,8 +1,7 @@
 #!/bin/bash
 
-for number in {1..10000}
+for number in {1..10000000}
 do
     echo $number
-    sleep 1
 done
 exit 0
