@@ -11,7 +11,7 @@ func main() {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		for i := 0; i < 1000000; i ++ {
+		for i := 0; i < 10000000; i ++ {
 			fmt.Println(i)
 		}
 	}()
