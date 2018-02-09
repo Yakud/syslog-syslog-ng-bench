@@ -64,7 +64,7 @@ services:
     depends_on:
       - agent1
 
-networks:
-  default:
-    external:
-      name: logs-network
+#networks:
+#  default:
+#    external:
+#      name: logs-network
