@@ -4,6 +4,7 @@ services:
   agent1:
     image: yakud/rsyslog
     hostname: agent1
+    network_mode: host
     volumes:
       - "./rsyslog/agent/agent.conf:/etc/rsyslog.d/agent.conf"
     ports:
@@ -14,6 +15,7 @@ services:
   central1:
     image: yakud/rsyslog
     hostname: central1
+    network_mode: host
     volumes:
       - "./rsyslog/central/central.conf:/etc/rsyslog.d/central.conf"
       - "./logs/:/tmp/"
@@ -23,39 +25,7 @@ services:
   loggen1:
     image: log-generator-image
     hostname: loggen1
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://127.0.0.1:1514"
-        tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
-    depends_on:
-      - agent1
-
-  loggen2:
-    image: log-generator-image
-    hostname: loggen2
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://127.0.0.1:1514"
-        tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
-    depends_on:
-      - agent1
-
-  loggen3:
-    image: log-generator-image
-    hostname: loggen3
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://127.0.0.1:1514"
-        tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
-    depends_on:
-      - agent1
-
-  loggen4:
-    image: log-generator-image
-    hostname: loggen4
+    network_mode: host
     logging:
       driver: syslog
       options:

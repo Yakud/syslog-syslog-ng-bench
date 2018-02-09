@@ -31,39 +31,6 @@ services:
     depends_on:
       - agent1
 
-  loggen2:
-    image: log-generator-image
-    hostname: loggen2
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://127.0.0.1:602"
-        tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
-    depends_on:
-      - agent1
-
-  loggen3:
-    image: log-generator-image
-    hostname: loggen3
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://127.0.0.1:602"
-        tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
-    depends_on:
-      - agent1
-
-  loggen4:
-    image: log-generator-image
-    hostname: loggen4
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://127.0.0.1:602"
-        tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
-    depends_on:
-      - agent1
-
 #networks:
 #  default:
 #    external:
