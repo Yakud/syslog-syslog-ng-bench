@@ -2,7 +2,6 @@
 
 docker run -d \
     --name=central \
-    --net host \
     --volume $(pwd)/syslog-ng/central/syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf \
     --volume $(pwd)/logs/:/tmp/ \
     -p 603:603 \
