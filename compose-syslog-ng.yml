@@ -26,12 +26,12 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: "upd://127.0.0.1:603"
+        syslog-address: "tcp://127.0.0.1:603"
         tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
     depends_on:
       - central1
 
-networks:
-  default:
-    external:
-      name: logs-network
+#networks:
+#  default:
+#    external:
+#      name: logs-network
