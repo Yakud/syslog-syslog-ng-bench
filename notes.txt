@@ -4,5 +4,10 @@ Rsyslog:
 - http://www.rsyslog.com/tag/parsing/
 - http://www.rsyslog.com/tag/performance/
 - http://www.rsyslog.com/how-to-use-tcpflood/
+- https://answers.splunk.com/answers/7001/udp-drops-on-linux.html
+
+
+Syslog-ng:
+- https://syslog-ng.com/documents/html/syslog-ng-ose-latest-guides/en/syslog-ng-ose-guide-admin/html/reference-source-network.html
 
 - https://hackernoon.com/how-fast-is-yes-in-go-1acc57b98815

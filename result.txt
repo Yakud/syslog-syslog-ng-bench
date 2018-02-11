@@ -1,0 +1,5 @@
+root@DS4752:/var/www/syslog-syslog-ng-bench# loggen --size 128 --rate 50000 --interval 60 --active-connections 10  127.0.0.1 603
+average rate = 497757.24 msg/sec, count=29865616, time=60.000, (average) msg size=128, bandwidth=62183.82 kB/sec
+
+root@DS4752:/var/www/syslog-syslog-ng-bench# loggen --size 128 --rate 50000 --interval 60 --active-connections 20  127.0.0.1 603
+average rate = 590820.68 msg/sec, count=35473912, time=60.041, (average) msg size=128, bandwidth=73810.05 kB/sec
