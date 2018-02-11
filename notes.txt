@@ -4,3 +4,5 @@ Rsyslog:
 - http://www.rsyslog.com/tag/parsing/
 - http://www.rsyslog.com/tag/performance/
 - http://www.rsyslog.com/how-to-use-tcpflood/
+
+- https://hackernoon.com/how-fast-is-yes-in-go-1acc57b98815

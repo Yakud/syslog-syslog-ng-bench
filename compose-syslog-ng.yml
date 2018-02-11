@@ -1,15 +1,15 @@
 version: '3.1'
 
 services:
-  agent1:
-    image: balabit/syslog-ng:3.7
-    hostname: agent1
-    volumes:
-      - "./syslog-ng/agent/syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf"
-    ports:
-      - 602:602
-    depends_on:
-      - central1
+#  agent1:
+#    image: balabit/syslog-ng:3.7
+#    hostname: agent1
+#    volumes:
+#      - "./syslog-ng/agent/syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf"
+#    ports:
+#      - 602:602
+#    depends_on:
+#      - central1
 
   central1:
     image: balabit/syslog-ng:3.7
@@ -26,10 +26,10 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: "tcp://127.0.0.1:602"
+        syslog-address: "tcp://127.0.0.1:603"
         tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
     depends_on:
-      - agent1
+      - central1
 
 networks:
   default:
