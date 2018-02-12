@@ -3,3 +3,12 @@ average rate = 497757.24 msg/sec, count=29865616, time=60.000, (average) msg siz
 
 root@DS4752:/var/www/syslog-syslog-ng-bench# loggen --size 128 --rate 50000 --interval 60 --active-connections 20  127.0.0.1 603
 average rate = 590820.68 msg/sec, count=35473912, time=60.041, (average) msg size=128, bandwidth=73810.05 kB/sec
+
+loggen docker go, overlay network ~ 110-130k/sec
+loggen docker go, host network ~ 110-130k/sec
+loggen go, write to file: ~3kk/sec
+
+
+host loggen -> host syslog-ng -> file = 400-500k
+host loggen -> docker syslog-ng -> file = 150k
+docker loggen -> host syslog-ng -> file 450-550k

@@ -2,25 +2,44 @@ package main
 
 import (
 	"os"
+	"log/syslog"
+	"log"
+	"flag"
+	"bufio"
 )
 
 func main() {
-	// create a buffer that has space equal to the page size
-	buf := make([]byte, 4096)
-	y := []byte("y\n")
-	used := 0
-	for {
-		buf[used] = y[0]
-		buf[(used)+1] = y[1]
-		used += 2
-		if used == 4096 {
-			break
+	syslogMode := flag.Bool("syslog", false, "as bool")
+	stdoutMode := flag.Bool("stdout", true, "as bool")
+	flag.Parse()
+
+	if *syslogMode && *stdoutMode || !*syslogMode && !*stdoutMode {
+		log.Fatal("wrong arguments")
+	}
+
+	if *syslogMode {
+		writer := bufio.NewWriter(os.Stdout)
+		for {
+			writer.WriteString("hello\n")
+			err := writer.Flush()
+			if err != nil {
+				log.Fatal(err)
+			}
 		}
 	}
-	// Print out the entire buffer at once - writing direct to
-	// stdout is the fastest way of doing this.
-	// It's the size of a standard linux pagefile.
-	for {
-		os.Stdout.Write(buf)
+
+	if *stdoutMode {
+		writer, err := syslog.Dial("tcp", "127.0.0.1:603", syslog.LOG_INFO|syslog.LOG_SYSLOG, "log-generator|host|writer")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		for {
+			err := writer.Info("hello\n")
+			if err != nil {
+				log.Fatal(err)
+			}
+		}
 	}
+
 }
