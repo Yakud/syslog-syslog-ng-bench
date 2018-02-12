@@ -45,5 +45,6 @@ func main() {
 
 			fmt.Print(metric,"\t",(currentValue - prevValue) / secondsInterval,"/sec\n")
 		}
+		fmt.Println("")
 	}
 }
