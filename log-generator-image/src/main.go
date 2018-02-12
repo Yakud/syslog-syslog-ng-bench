@@ -52,7 +52,7 @@ func main() {
 					if err != nil {
 						log.Fatal(err)
 					}
-					time.Sleep(time.Millisecond)
+					time.Sleep(time.Microsecond)
 					counterMutex.Lock()
 					count += 1
 					counterMutex.Unlock()
