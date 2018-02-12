@@ -29,7 +29,7 @@ func main() {
 
 		lines := strings.Split(string(out), "\n")
 
-		for _, line := range lines[1:] {
+		for _, line := range lines[1:len(lines)-1] {
 			parts := strings.Split(line, ";")
 			metric := strings.Join(parts[0:2], ";")
 			currentValue, err := strconv.Atoi(parts[len(parts)-1])
