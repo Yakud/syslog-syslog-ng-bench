@@ -25,7 +25,7 @@ func main() {
 
 		go func() {
 			for ;true;<-time.After(time.Second) {
-				fmt.Println(count - prevCount)
+				fmt.Print(count - prevCount, " msg/sec\n")
 				prevCount = count
 			}
 		}()
