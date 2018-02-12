@@ -12,3 +12,9 @@ loggen go, write to file: ~3kk/sec
 host loggen -> host syslog-ng -> file = 400-500k
 host loggen -> docker syslog-ng -> file = 150k
 docker loggen -> host syslog-ng -> file 450-550k
+
+
+host loggen -> host syslog-ng -> file     =
+host loggen -> docker syslog-ng -> file   =
+docker loggen -> host syslog-ng -> file   =
+docker loggen -> docker syslog-ng -> file =

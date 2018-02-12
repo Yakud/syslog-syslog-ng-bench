@@ -1,5 +1,5 @@
 FROM debian
 
-COPY gen-log /usr/local/bin
+COPY ../bin/gen-log /usr/local/bin
 
 ENTRYPOINT ["/usr/local/bin/gen-log"]
