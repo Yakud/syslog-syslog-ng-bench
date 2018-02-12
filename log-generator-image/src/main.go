@@ -8,6 +8,7 @@ import (
 	"bufio"
 	"time"
 	"fmt"
+	"sync"
 )
 
 func main() {
@@ -23,15 +24,21 @@ func main() {
 		count := 0
 		prevCount := 0
 
+		wg := &sync.WaitGroup{}
+		wg.Add(1)
 		go func() {
+			defer wg.Done()
+			fmt.Println("ticker stats")
 			tick := time.Tick(time.Second)
-			for ;true;<-tick {
+			for ; true; <-tick {
 				fmt.Print(count - prevCount, " msg/sec\n")
 				prevCount = count
 			}
 		}()
 
+		wg.Add(1)
 		go func() {
+			defer wg.Done()
 			writer, err := syslog.Dial("tcp", "127.0.0.1:603", syslog.LOG_INFO|syslog.LOG_SYSLOG, "log-generator|host|writer")
 			if err != nil {
 				log.Fatal(err)
@@ -45,6 +52,8 @@ func main() {
 				count += 1
 			}
 		}()
+
+		wg.Wait()
 	}
 
 	if *stdoutMode {
