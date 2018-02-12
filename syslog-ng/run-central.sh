@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+docker stop central && docker rm central
+
 docker run -d \
     --name=central \
     --volume $(pwd)/syslog-ng/central/syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf \
