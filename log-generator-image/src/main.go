@@ -46,6 +46,7 @@ func main() {
 				if err != nil {
 					log.Fatal(err)
 				}
+				time.Sleep(time.Millisecond)
 
 				for {
 					err := writer.Info("hello\n")
