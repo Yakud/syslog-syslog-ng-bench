@@ -1,9 +1,24 @@
 package main
 
 import (
+	"bufio"
 	"os"
 )
 
+func main() {
+	msg := []byte("hello\n")
+	f := bufio.NewWriter(os.Stdout)
+	for i := 0; i < 10000000; i ++ {
+		f.Write(msg)
+		f.Flush()
+	}
+}
+
+
+package main
+import (
+"os"
+)
 func main() {
 	// create a buffer that has space equal to the page size
 	buf := make([]byte, 4096)
