@@ -49,7 +49,7 @@ func main() {
 			fmt.Print(
 				metric,
 				"\t",
-				fmt.Sprintf("%.3",float64(currentValue - prevValue) / float64(*interval)),"/sec\n")
+				fmt.Sprintf("%.3f",float64(currentValue - prevValue) / float64(*interval)),"/sec\n")
 		}
 		fmt.Println("")
 	}
