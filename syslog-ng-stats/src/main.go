@@ -31,7 +31,7 @@ func main() {
 
 		for _, line := range lines[1:] {
 			parts := strings.Split(line, ";")
-			metric := strings.Join(parts[0:1], ";")
+			metric := strings.Join(parts[0:2], ";")
 			currentValue, err := strconv.Atoi(parts[len(parts)-1])
 			if err != nil {
 				currentValue = 0
