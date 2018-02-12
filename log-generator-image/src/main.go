@@ -6,6 +6,8 @@ import (
 	"log"
 	"flag"
 	"bufio"
+	"time"
+	"fmt"
 )
 
 func main() {
@@ -18,17 +20,30 @@ func main() {
 	}
 
 	if *syslogMode {
-		writer, err := syslog.Dial("tcp", "127.0.0.1:603", syslog.LOG_INFO|syslog.LOG_SYSLOG, "log-generator|host|writer")
-		if err != nil {
-			log.Fatal(err)
-		}
+		count := 0
+		prevCount := 0
 
-		for {
-			err := writer.Info("hello\n")
+		go func() {
+			for ;true;<-time.After(time.Second) {
+				fmt.Println(count - prevCount)
+				prevCount = count
+			}
+		}()
+
+		go func() {
+			writer, err := syslog.Dial("tcp", "127.0.0.1:603", syslog.LOG_INFO|syslog.LOG_SYSLOG, "log-generator|host|writer")
 			if err != nil {
 				log.Fatal(err)
 			}
-		}
+
+			for {
+				err := writer.Info("hello\n")
+				if err != nil {
+					log.Fatal(err)
+				}
+				count += 1
+			}
+		}()
 	}
 
 	if *stdoutMode {
