@@ -7,10 +7,14 @@ import (
 	"strings"
 	"strconv"
 	"fmt"
+	"flag"
 )
 
 // syslog-ng-ctl stats parser
 func main() {
+	interval := flag.Int("interval", 1, "as bool")
+	flag.Parse()
+
 	_, err := exec.Command("syslog-ng-ctl","stats", "--reset").Output()
 	if err != nil {
 		log.Fatal(err)
@@ -18,9 +22,8 @@ func main() {
 
 	data := make(map[string]int)
 
-	secondsInterval := 1
 
-	tick := time.Tick(time.Second * time.Duration(secondsInterval))
+	tick := time.Tick(time.Second * time.Duration(*interval))
 	for ; true; <-tick {
 		out, err := exec.Command("syslog-ng-ctl","stats").Output()
 		if err != nil {
@@ -43,7 +46,10 @@ func main() {
 				prevValue = currentValue
 			}
 
-			fmt.Print(metric,"\t",(currentValue - prevValue) / secondsInterval,"/sec\n")
+			fmt.Print(
+				metric,
+				"\t",
+				fmt.Sprintf("%.3",float64(currentValue - prevValue) / float64(*interval)),"/sec\n")
 		}
 		fmt.Println("")
 	}
