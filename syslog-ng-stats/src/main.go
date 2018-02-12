@@ -36,9 +36,9 @@ func main() {
 			parts := strings.Split(line, ";")
 			metric := strings.Join(parts[0:2], ";")
 
-			if !strings.HasPrefix(metric, "source;") && !strings.HasPrefix(metric, "destination;") {
-				continue
-			}
+			//if !strings.HasPrefix(metric, "source;") && !strings.HasPrefix(metric, "destination;") {
+			//	continue
+			//}
 
 			currentValue, err := strconv.Atoi(parts[len(parts)-1])
 			if err != nil {
@@ -51,10 +51,13 @@ func main() {
 			}
 			data[metric] = currentValue
 
-			fmt.Print(
-				metric,
-				"\t",
-				fmt.Sprintf("%.3f",float64(currentValue - prevValue) / float64(*interval)),"/sec\n")
+			if currentValue - prevValue != 0 {
+				fmt.Print(
+					metric,
+					"\t",
+					fmt.Sprintf("%.3f",float64(currentValue - prevValue) / float64(*interval)),"/sec\n")
+			}
+
 		}
 		fmt.Println("-----------------------------------")
 	}
