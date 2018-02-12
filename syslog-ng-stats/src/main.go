@@ -35,6 +35,11 @@ func main() {
 		for _, line := range lines[1:len(lines)-1] {
 			parts := strings.Split(line, ";")
 			metric := strings.Join(parts[0:2], ";")
+
+			if !strings.HasPrefix(metric, "source;") && !strings.HasPrefix(metric, "destination;") {
+				continue
+			}
+
 			currentValue, err := strconv.Atoi(parts[len(parts)-1])
 			if err != nil {
 				currentValue = 0
