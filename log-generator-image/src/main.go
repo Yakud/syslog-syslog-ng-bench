@@ -18,17 +18,6 @@ func main() {
 	}
 
 	if *syslogMode {
-		writer := bufio.NewWriter(os.Stdout)
-		for {
-			writer.WriteString("hello\n")
-			err := writer.Flush()
-			if err != nil {
-				log.Fatal(err)
-			}
-		}
-	}
-
-	if *stdoutMode {
 		writer, err := syslog.Dial("tcp", "127.0.0.1:603", syslog.LOG_INFO|syslog.LOG_SYSLOG, "log-generator|host|writer")
 		if err != nil {
 			log.Fatal(err)
@@ -42,4 +31,14 @@ func main() {
 		}
 	}
 
+	if *stdoutMode {
+		writer := bufio.NewWriter(os.Stdout)
+		for {
+			writer.WriteString("hello\n")
+			err := writer.Flush()
+			if err != nil {
+				log.Fatal(err)
+			}
+		}
+	}
 }
