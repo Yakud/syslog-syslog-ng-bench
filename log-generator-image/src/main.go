@@ -24,7 +24,8 @@ func main() {
 		prevCount := 0
 
 		go func() {
-			for ;true;<-time.After(time.Second) {
+			tick := time.Tick(time.Second)
+			for ;true;<-tick {
 				fmt.Print(count - prevCount, " msg/sec\n")
 				prevCount = count
 			}
