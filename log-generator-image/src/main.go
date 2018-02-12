@@ -14,6 +14,7 @@ import (
 func main() {
 	syslogMode := flag.Bool("syslog", false, "as bool")
 	stdoutMode := flag.Bool("stdout", true, "as bool")
+	workers := flag.Int("workers", 1, "as bool")
 	flag.Parse()
 
 	if *syslogMode && *stdoutMode || !*syslogMode && !*stdoutMode {
@@ -21,6 +22,7 @@ func main() {
 	}
 
 	if *syslogMode {
+		counterMutex := &sync.Mutex{}
 		count := 0
 		prevCount := 0
 
@@ -36,22 +38,27 @@ func main() {
 			}
 		}()
 
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			writer, err := syslog.Dial("tcp", "127.0.0.1:603", syslog.LOG_INFO|syslog.LOG_SYSLOG, "log-generator|host|writer")
-			if err != nil {
-				log.Fatal(err)
-			}
 
-			for {
-				err := writer.Info("hello\n")
+		wg.Add(*workers)
+		for i := 0; i < *workers; i ++ {
+			go func() {
+				defer wg.Done()
+				writer, err := syslog.Dial("tcp", "127.0.0.1:603", syslog.LOG_INFO|syslog.LOG_SYSLOG, "log-generator|host|writer")
 				if err != nil {
 					log.Fatal(err)
 				}
-				count += 1
-			}
-		}()
+
+				for {
+					err := writer.Info("hello\n")
+					if err != nil {
+						log.Fatal(err)
+					}
+					counterMutex.Lock()
+					count += 1
+					counterMutex.Unlock()
+				}
+			}()
+		}
 
 		wg.Wait()
 	}
