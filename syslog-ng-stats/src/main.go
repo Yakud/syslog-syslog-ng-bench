@@ -42,9 +42,9 @@ func main() {
 
 			prevValue, ok := data[metric]
 			if !ok {
-				data[metric] = currentValue
 				prevValue = currentValue
 			}
+			data[metric] = currentValue
 
 			fmt.Print(
 				metric,
