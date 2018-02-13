@@ -66,19 +66,8 @@ func main() {
 	if *stdoutMode {
 		counterMutex := &sync.Mutex{}
 		count := 0
-		prevCount := 0
 
 		wg := &sync.WaitGroup{}
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			fmt.Println("ticker stats")
-			tick := time.Tick(time.Second)
-			for ; true; <-tick {
-				fmt.Print(count - prevCount, " msg/sec\n")
-				prevCount = count
-			}
-		}()
 
 		wg.Add(*workers)
 		for i := 0; i < *workers; i ++ {
