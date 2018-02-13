@@ -64,13 +64,42 @@ func main() {
 	}
 
 	if *stdoutMode {
-		writer := bufio.NewWriter(os.Stdout)
-		for {
-			writer.WriteString("hello\n")
-			err := writer.Flush()
-			if err != nil {
-				log.Fatal(err)
+		counterMutex := &sync.Mutex{}
+		count := 0
+		prevCount := 0
+
+		wg := &sync.WaitGroup{}
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			fmt.Println("ticker stats")
+			tick := time.Tick(time.Second)
+			for ; true; <-tick {
+				fmt.Print(count - prevCount, " msg/sec\n")
+				prevCount = count
 			}
+		}()
+
+		wg.Add(*workers)
+		for i := 0; i < *workers; i ++ {
+			go func() {
+				defer wg.Done()
+
+				writer := bufio.NewWriter(os.Stdout)
+				for {
+					writer.WriteString("hello\n")
+					err := writer.Flush()
+					if err != nil {
+						log.Fatal(err)
+					}
+
+					counterMutex.Lock()
+					count += 1
+					counterMutex.Unlock()
+				}
+			}()
 		}
+
+		wg.Wait()
 	}
 }
