@@ -14,7 +14,7 @@ import (
 func main() {
 	syslogMode := flag.Bool("syslog", false, "as bool")
 	stdoutMode := flag.Bool("stdout", true, "as bool")
-	workers := flag.Int("workers", 1, "as bool")
+	workers := flag.Int("workers", 10, "as bool")
 	flag.Parse()
 
 	if *syslogMode && *stdoutMode || !*syslogMode && !*stdoutMode {
